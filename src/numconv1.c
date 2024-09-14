@@ -3,13 +3,52 @@
 
 int main(int argc, char const *argv[])
 {
-    char res[255];
 
-    printf("%d\n", oct_to_int("16612"));
-    int_to_oct(7562, res);
+    printf("%d\n", dec_to_int("-16612"));
+
+    char res[255];
+    int_to_dec(7562, res);
     printf("%s\n", res);
 
     return 0;
+}
+
+int dec_to_int(char *str) {
+    int value = 0;
+    int isNegative = 0;
+
+    if (*str == '-') {
+        str++;
+        isNegative = 1;
+    }
+
+    while (is_digit(*str))
+    {
+        value *= 10;
+        value += *str - '0';
+        str++;
+    }
+    
+    if (isNegative == 1) {
+        value *= -1;
+    }
+    
+    return value;
+}
+
+void int_to_dec(int num, char* str) {
+    int remain = num;
+    char *start = str;  // Start position
+    do
+    {
+        int digit = remain % 10;
+        *str = digit + '0';
+        str++;
+        remain /= 10;
+    } while (remain > 0);
+
+    *str = '\0';
+    reverse_string(start, str);
 }
 
 int oct_to_int(char *str) {
@@ -129,6 +168,10 @@ int is_hex_digit(char c) {
 
 int is_oct_digit(char c) {
     return (c >= '0' && c <= '8') ? 1 : 0;
+}
+
+int is_digit(char c) {
+    return (c >= '0' && c <= '9') ? 1 : 0;
 }
 
 void reverse_string(char *startPos, char *str) {
