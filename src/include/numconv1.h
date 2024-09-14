@@ -7,9 +7,9 @@ int hex_to_int(char str[]);
 int oct_to_int(char str[]);
 
 void int_to_dec(int num, char str[]);
-void int_to_bin(int num, char str[]);
 void int_to_hex(int num, char str[]);
 void int_to_oct(int num, char str[]);
+void int_to_bin(int num, char str[]);
 
 // Helpers
 
@@ -17,5 +17,9 @@ int is_digit(char c);
 int is_bin_digit(char c);
 int is_hex_digit(char c);
 int is_oct_digit(char c);
+
+int string_length(char str[]);
+int int_length(int num);
+void reverse_string(char *startPos, char *str);
 
 #endif // NUMCONV1_H
