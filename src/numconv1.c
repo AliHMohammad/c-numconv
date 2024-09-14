@@ -1,17 +1,6 @@
 #include <stdio.h>
 #include "numconv1.h"
 
-int main(int argc, char const *argv[])
-{
-
-    printf("%d\n", dec_to_int("-16612"));
-
-    char res[255];
-    int_to_dec(7562, res);
-    printf("%s\n", res);
-
-    return 0;
-}
 
 int dec_to_int(char *str) {
     int value = 0;
