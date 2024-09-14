@@ -3,11 +3,8 @@
 
 int main(int argc, char const *argv[])
 {
-    char res[255] = "FA13";
-    printf("Hello\n");
-
+    char res[255];
     
-    printf("%d\n", hex_to_int(res));
     return 0;
 }
 
@@ -20,7 +17,7 @@ int hex_to_int(char *str) {
 
         if (*str >= '0' && *str <= '9') {
             value += *str - '0'; 
-        } else if (*str >= 'A' && *str <= 'F') {
+        } else if ((*str >= 'A' && *str <= 'F') || (*str >= 'a' && *str <= 'f') ) {
             value += *str - 'A' + 10;  // til 10-15
         }
 
@@ -31,11 +28,26 @@ int hex_to_int(char *str) {
 }
 
 void int_to_hex(int num, char *str) {
+    int remain = num;
+    char *start = str;  // Start position
+    
+    // From right to left
+    do {
+        int digit = remain % 16;
 
+        if (digit < 10) {
+            *str = digit + '0';  // 0 er asci 48
+        } else {
+            *str = digit + 'A' - 10; // 10 til 15;
+        }
+
+        str++;
+        remain /= 16;
+    } while (remain > 0);
+    
+    *str = '\0';
+    reverse_string(start, str);
 }
-
-
-
 
 int bin_to_int(char *str) {
     int value = 0;
@@ -56,7 +68,7 @@ int bin_to_int(char *str) {
 
 void int_to_bin(int num, char *str) {
     int remain = num;
-    char *start = str;  // Save the initial position of the string
+    char *start = str;  // Start position
     
     // From right to left
     do {
@@ -76,7 +88,7 @@ int is_bin_digit(char c) {
 }
 
 int is_hex_digit(char c) {
-    return ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F')) ? 1 : 0;
+    return ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f')) ? 1 : 0;
 }
 
 void reverse_string(char *startPos, char *str) {
