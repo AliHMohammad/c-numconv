@@ -4,8 +4,44 @@
 int main(int argc, char const *argv[])
 {
     char res[255];
-    
+
+    printf("%d\n", oct_to_int("16612"));
+    int_to_oct(7562, res);
+    printf("%s\n", res);
+
     return 0;
+}
+
+int oct_to_int(char *str) {
+    int value = 0;
+
+    while (is_oct_digit(*str))
+    {
+        value *= 8;
+        value += *str - '0';
+
+        str++;
+    }
+
+    return value;
+}
+
+void int_to_oct(int num, char *str) {
+    int remain = num;
+    char *start = str;  // Start position
+    
+    // From right to left
+    do {
+        int digit = remain % 8;
+
+        *str = digit + '0';  // 0 er asci 48
+
+        str++;
+        remain /= 8;
+    } while (remain > 0);
+    
+    *str = '\0';
+    reverse_string(start, str);
 }
 
 int hex_to_int(char *str) {
@@ -89,6 +125,10 @@ int is_bin_digit(char c) {
 
 int is_hex_digit(char c) {
     return ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f')) ? 1 : 0;
+}
+
+int is_oct_digit(char c) {
+    return (c >= '0' && c <= '8') ? 1 : 0;
 }
 
 void reverse_string(char *startPos, char *str) {
