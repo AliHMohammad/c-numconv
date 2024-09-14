@@ -18,8 +18,6 @@ int is_bin_digit(char c);
 int is_hex_digit(char c);
 int is_oct_digit(char c);
 
-int string_length(char str[]);
-int int_length(int num);
 void reverse_string(char *startPos, char *str);
 
 #endif // NUMCONV1_H
