@@ -97,16 +97,16 @@ void int_to_hex(int num, char *str) {
     
     // From right to left
     do {
-        int digit = remain % 16;
+        int digit = remain & 0xF; // Få de første fire bits (15) med AND masking 
 
         if (digit < 10) {
-            *str = digit + '0';  // 0 er asci 48
+            *str = digit | 0b00110000;  // OR med asci 48
         } else {
-            *str = digit + 'A' - 10; // 10 til 15;
+            *str = (0x41 & 0xF0) | (digit - 9); 
         }
 
         str++;
-        remain /= 16;
+        remain >>= 4; // Shifter til højre med 4 bits (2^4)
     } while (remain > 0);
     
     *str = '\0';
@@ -118,7 +118,7 @@ int bin_to_int(char *str) {
 
     while (is_bin_digit(*str))
     {
-        value *= 2;
+        value <<= 1;
 
         if (*str == '1') {
             value += 1;
@@ -139,7 +139,7 @@ void int_to_bin(int num, char *str) {
         int digit = remain % 2;
         *str = digit + '0';  // 0 er asci 48
         str++;
-        remain /= 2;
+        remain >>= 1;
     } while (remain > 0);
     
 
