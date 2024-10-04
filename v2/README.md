@@ -3,6 +3,7 @@
 Tested on:
 Windows 11
 
+Uses bitwise operations to converter from one number type to another.
 
 ### How to run:
 
