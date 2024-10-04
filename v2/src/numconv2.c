@@ -77,14 +77,14 @@ int hex_to_int(char *str) {
 
     while (is_hex_digit(*str))
     {
-        value *= 16;
+        value <<= 4; // Shifter til venstre med 4 bits (2^4)
+        char c = *str;
 
-        if (*str >= '0' && *str <= '9') {
-            value += *str - '0'; 
-        } else if ((*str >= 'A' && *str <= 'F') || (*str >= 'a' && *str <= 'f') ) {
-            value += *str - 'A' + 10;  // til 10-15
+        if (c > 0x39) { // Hvis a-f/A-F
+            c -= 7;
         }
 
+        value += c & 0b1111; // AND med 15
         str++;
     }
 
