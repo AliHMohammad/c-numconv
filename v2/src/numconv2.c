@@ -120,10 +120,8 @@ int bin_to_int(char *str) {
     {
         value <<= 1;
 
-        if (*str == '1') {
-            value += 1;
-        } 
-        
+        value |= (*str & 0b1); // Få den første bit, OR den med value.
+
         str++;
     }
 
@@ -136,15 +134,15 @@ void int_to_bin(int num, char *str) {
     
     // From right to left
     do {
-        int digit = remain % 2;
-        *str = digit + '0';  // 0 er asci 48
+        int digit = remain & 0b1; // Få den første bit værdi
+        *str = digit | 0b00110000;  // OR med asci 48. 0 giver 48 acsi = '0', 1 giver 49 acii = '1'
         str++;
         remain >>= 1;
     } while (remain > 0);
     
 
     *str = '\0';
-    reverse_string(start, str - 1); // -1 for ikke at få '\0' med
+    reverse_string(start, str);
 }
 
 int is_bin_digit(char c) {
