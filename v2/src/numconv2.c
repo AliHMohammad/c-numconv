@@ -45,8 +45,9 @@ int oct_to_int(char *str) {
 
     while (is_oct_digit(*str))
     {
-        value *= 8;
-        value += *str - '0';
+        value <<= 3; // Shift til venstre med 3 (2^3 = 8)
+        printf("%d\n", *str);
+        value += *str & 0b111; // Få de sidste 3 bits (0-7)
 
         str++;
     }
@@ -60,12 +61,12 @@ void int_to_oct(int num, char *str) {
     
     // From right to left
     do {
-        int digit = remain % 8;
+        int digit = remain & 0b111; // Få de første tre bits (15) med AND masking 
 
-        *str = digit + '0';  // 0 er asci 48
+        *str = digit | 0b00110000;  // OR med asci 48
 
         str++;
-        remain /= 8;
+        remain >>= 3; // Shift til højre med 3 bits (2^3 = 8);
     } while (remain > 0);
     
     *str = '\0';
